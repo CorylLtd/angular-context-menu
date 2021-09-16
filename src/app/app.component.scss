@@ -1,0 +1,82 @@
+// THE STYLE IS FROM CODEPEN
+
+.collection {
+  padding-left: 0;
+  list-style-type: none;
+  margin: .5rem 0 1rem 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.collection-item {
+  background-color: #fff;
+  line-height: 1.5rem;
+  padding: 10px 20px;
+  margin: 0;
+  border-bottom: 1px solid #e0e0e0;
+  list-style-type: none;
+}
+
+.user-menu {
+  background-color: #fafafa;
+  padding: 4pt;
+  font-size: 10pt;
+  z-index: 1000;
+  box-shadow: 0 0 12pt rgba(0, 0, 0, 0.25);
+  border-radius: 4pt;
+  opacity: 1.0;
+  display: block;
+
+  hr {
+    border: none;
+    border-bottom: 1px solid #eee;
+  }
+
+  .single-item {
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    color: #333;
+    padding: 0.5em 2em 0.5em 0.75em;
+    max-width: 18em;
+    white-space: nowrap;
+    overflow: hidden;
+
+
+    &:hover {
+      background-color: #333;
+      color: #fff;
+    }
+
+    &::before {
+      content: '';
+      float: left;
+      margin-right: 0.75em;
+      width: 0.5em;
+      height: 1em;
+      display: inline-block;
+    }
+  }
+
+  .sub-menu {
+    position: absolute;
+    transform: translateY(-26px);
+    left: 95%;
+    background-color: #fafafa;
+    padding: 4pt;
+    font-size: 10pt;
+    z-index: 2000;
+    box-shadow: 0 0 12pt rgba(0, 0, 0, 0.25);
+    border-radius: 4pt;
+    opacity: 1.0;
+    display: none;
+    width: fit-content;
+  }
+
+  .parent-container:hover > .sub-menu, .parent-container > .sub-menu:hover {
+    display: block;
+  }
+
+}
