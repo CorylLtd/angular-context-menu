@@ -4,39 +4,13 @@
   </div>
 </section>
 
-<ng-template #userMenu let-user>
-  <section class="user-menu">
-    <div class="single-item" (click)="delete(user)">Item 1
-    </div>
-    <div class="parent-container">
-      <div class="single-item"  (click)="delete(user)">Item 2
-      </div>
-      <div class="sub-menu user-menu">
-        <div class="single-item" (click)="delete(user)">Item 2.1
-        </div>
-        <div class="single-item" (click)="delete(user)">This is a long menu item
-        </div>
-        <div class="parent-container">
-          <div class="single-item"  (click)="delete(user)">Item 2.3
-          </div>
-          <div class="sub-menu user-menu">
-            <div class="single-item" (click)="delete(user)">Item 2.3.1
-            </div>
-            <div class="single-item" (click)="delete(user)">Item 2.3.2
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <div class="parent-container">
-      <div class="single-item"  (click)="delete(user)">Item 3
-      </div>
-      <div class="sub-menu user-menu">
-        <div class="single-item" (click)="delete(user)">Item 3.1
-        </div>
-      </div>
-    </div>
-    <div class="single-item">Item 4</div>
-  </section>
+<ng-template #userMenu let-menuItems>
+  <ul>
+    <li *ngFor="let item of menuItems">
+      {{item.text}}
+    <ng-container *ngIf="item.subItems != null">
+      <ng-container [ngTemplateOutlet]="userMenu" [ngTemplateOutletContext]="{$implicit: item.subItems}"></ng-container>
+    </ng-container>
+    </li>
+  </ul>
 </ng-template>

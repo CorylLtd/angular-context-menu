@@ -4,16 +4,63 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { fromEvent, Subscription } from 'rxjs';
 import { take, filter } from 'rxjs/operators';
 
+export interface MenuItem {
+  text: string;
+  handler?: () => void;
+  subItems?: Array<MenuItem>
+}
+
+const menuItems: Array<MenuItem> = [
+  {
+    text: 'Item 1',
+  },
+  {
+    text: 'Item 2',
+    subItems: [
+      {
+        text: 'Item 2.1'
+      },
+      {
+        text: 'Item 2.2'
+      },
+      {
+        text: 'Item 2.3',
+        subItems: [
+          {
+            text: 'Item 2.3.1'
+          },
+          {
+            text: 'Item 2.3.2'
+          }
+        ]
+      },
+    ]
+  },
+  {
+    text: 'Item 3',
+    subItems: [
+      {
+        text: 'Item 3.1'
+      }
+    ]
+  },
+  {
+    text: 'Item 4'
+  }
+];
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  sub: Subscription | undefined;
+  menuItems = menuItems;
+
+  sub: Subscription;
 
   users = Array.from({ length: 10 }, () => ({
-    name: 'Item'
+    name: 'Wowser!!'
   }));
 
   @ViewChild('userMenu') userMenu: TemplateRef<any>;
@@ -47,7 +94,7 @@ export class AppComponent {
     });
 
     this.overlayRef.attach(new TemplatePortal(this.userMenu, this.viewContainerRef, {
-      $implicit: user
+      $implicit: this.menuItems
     }));
 
     this.sub = fromEvent<MouseEvent>(document, 'click')
@@ -58,17 +105,9 @@ export class AppComponent {
         }),
         take(1)
       ).subscribe(() => this.close())
-
-  }
-
-  delete(user) {
-    console.log('delete');
-    // delete user
-    this.close();
   }
 
   close() {
-    console.log('close')
     this.sub && this.sub.unsubscribe();
     if (this.overlayRef) {
       this.overlayRef.dispose();
